@@ -1,7 +1,7 @@
 class ApiController < ActionController::API
   include ActionController::MimeResponds
 
-  rescue_from StandardError, with: :error_generic
+  # rescue_from StandardError, with: :error_generic
   rescue_from ActiveRecord::RecordNotUnique, with: :error_not_unique
   rescue_from ActiveRecord::RecordNotFound, with: :error_record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :error_generic

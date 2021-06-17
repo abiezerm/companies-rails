@@ -2,13 +2,15 @@ module Clients
   class CreateClientForm
     include ActiveModel::Model
 
-    attr_accessor :first_name, :last_name, :phone, :email, :title
+    attr_accessor :first_name, :last_name, :phone, :email, :title, :company_id
     attr_reader :client
 
-    validates :first_name, :last_name, :phone, :email, :title, presence: true
+    validates :first_name, :last_name, :phone, :email, :title, :company_id, presence: true
     validates :phone, length: { minimum: 10, maximum: 15 }
     validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: 'Email is invalid' }
+    validates :company_id, numericality: { only_integer: true }
 
+    validate :client_company_is_exists
     validate :client_email_is_unique
 
     def initialize(params = {})
@@ -33,6 +35,10 @@ module Clients
 
     def client_is_valid
       errors.add(:client, 'is invalid') if @client.invalid?
+    end
+
+    def client_company_is_exists
+      errors.add(:company, "Company #{company_id} not exists") unless Companies::Company.exists?(id: company_id)
     end
 
     def client_email_is_unique

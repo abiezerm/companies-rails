@@ -13,10 +13,10 @@ module Api
       end
 
       def create
-        form = Clients::CreateClient.call(client_params)
+        form = Clients::CreateClient.call(client_create_params)
 
         if form.save
-          api_success(form.client, { serializer: Clients::ClientSerializer }, 200)
+          api_success(form.client, { serializer: Clients::ClientCompanySerializer }, 200)
         else
           api_error(400, 'Form invalid', form.errors)
         end
@@ -27,10 +27,24 @@ module Api
         api_success(@client, { serializer: Clients::ClientCompanySerializer }, 200)
       end
 
+      def update
+        form = Clients::UpdateClient.call(params[:id], client_update_params)
+
+        if form.save
+          api_success(form.client, {}, 200)
+        else
+          api_error(400, 'Form invalid', form.errors)
+        end
+      end
+
       private
 
-      def client_params
-        params.require(:client).permit(:first_name, :last_name, :phone, :email, :title)
+      def client_create_params
+        params.require(:client).permit(:first_name, :last_name, :phone, :email, :title, :company_id)
+      end
+
+      def client_update_params
+        params.require(:client).permit(:id, :first_name, :last_name, :phone, :email, :title)
       end
     end
   end
