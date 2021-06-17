@@ -4,7 +4,9 @@ Rails.application.routes.draw do
       get 'test' => 'test#index'
 
       resources :clients, only: %i[index]
+      resources :companies, only: %i[index]
     end
+
     get '/*path', to: lambda { |_env|
       [404, { 'Content-Type' => 'application/json' }, [JSON.generate({ message: 'Not found' })]]
     }
