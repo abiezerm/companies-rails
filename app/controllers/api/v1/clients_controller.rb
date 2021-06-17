@@ -7,9 +7,9 @@ module Api
           page: params[:page] ? params[:page].to_i : 1
         }
 
-        @data = Clients::Client.all
+        @data = Clients::GetAllClients.call(options)
 
-        api_success(@data, { each_serializer: Clients::ClientSerializer }, 200)
+        api_success_pagination(@data, { each_serializer: Clients::ClientSerializer }, 200)
       end
     end
   end
