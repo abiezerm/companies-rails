@@ -1,9 +1,11 @@
 class ApiController < ActionController::API
   include ActionController::MimeResponds
 
+  rescue_from StandardError, with: :error_generic
   rescue_from ActiveRecord::RecordNotUnique, with: :error_not_unique
   rescue_from ActiveRecord::RecordNotFound, with: :error_record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :error_generic
+  rescue_from ActionController::UnpermittedParameters, with: :error_unpermitted_params
 
   def error_generic(exception)
     logger.info exception
@@ -23,6 +25,10 @@ class ApiController < ActionController::API
 
   def error_default(exception)
     api_error(404, exception.message, [])
+  end
+
+  def error_unpermitted_params(exception)
+    api_error(400, exception.message, [])
   end
 
   def error_not_unique(exception)

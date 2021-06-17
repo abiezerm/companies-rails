@@ -11,6 +11,22 @@ module Api
 
         api_success_pagination(@data, { each_serializer: Clients::ClientSerializer }, 200)
       end
+
+      def create
+        form = Clients::CreateClient.call(client_params)
+
+        if form.save
+          api_success(form.client, { serializer: Clients::ClientSerializer }, 200)
+        else
+          api_error(400, 'Form invalid', form.errors)
+        end
+      end
+
+      private
+
+      def client_params
+        params.require(:client).permit(:first_name, :last_name, :phone, :email, :title)
+      end
     end
   end
 end

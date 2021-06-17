@@ -40,5 +40,7 @@ module CompaniesRails
     config.autoload_paths << config.root.join('lib')
 
     config.exceptions_app = routes
+
+    config.action_controller.action_on_unpermitted_parameters = :raise
   end
 end

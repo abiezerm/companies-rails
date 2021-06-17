@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'test' => 'test#index'
 
-      resources :clients, only: %i[index]
+      resources :clients, only: %i[index create]
       resources :companies, only: %i[index create]
     end
 
