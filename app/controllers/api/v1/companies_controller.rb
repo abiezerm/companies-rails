@@ -13,7 +13,7 @@ module Api
       end
 
       def create
-        form = Companies::CreateCompany.call(company_params)
+        form = Companies::CreateCompany.call(company_create_params)
 
         if form.save
           api_success(form.company, { serializer: Companies::CompanySerializer }, 200)
@@ -23,19 +23,37 @@ module Api
       end
 
       def show
-        @data = Companies::Company.includes(:clients).find(params[:id])
+        data = Companies::Company.includes(:clients).find(params[:id])
 
-        api_success(@data, { serializer: Companies::CompanySerializer }, 200)
+        api_success(data, { serializer: Companies::CompanySerializer }, 200)
       end
 
       def update
-        # #
+        form = Companies::UpdateCompany.call(params[:id], company_update_params)
+
+        if form.save
+          api_success(form.company, { serializer: Companies::CompanySerializer }, 200)
+        else
+          api_error(400, 'Form invalid', form.errors)
+        end
+      end
+
+      def destroy
+        company = Companies::Company.find(params[:id])
+
+        company.destroy
+
+        api_success({ delete: true }, {}, 200)
       end
 
       private
 
-      def company_params
+      def company_create_params
         params.require(:company).permit(:name, :status, :phone)
+      end
+
+      def company_update_params
+        params.require(:company).permit(:id, :name, :status, :phone)
       end
     end
   end
