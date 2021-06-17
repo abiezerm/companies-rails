@@ -11,6 +11,22 @@ module Api
 
         api_success_pagination(@data, { each_serializer: Companies::CompanySerializer }, 200)
       end
+
+      def create
+        form = Companies::CreateCompany.call(company_params)
+
+        if form.save
+          api_success(form.company, { serializer: Companies::CompanySerializer }, 200)
+        else
+          api_error(400, 'Form Invalid', form.errors)
+        end
+      end
+
+      private
+
+      def company_params
+        params.require(:company).permit(:name, :status, :phone)
+      end
     end
   end
 end
