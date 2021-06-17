@@ -22,6 +22,16 @@ module Api
         end
       end
 
+      def show
+        @data = Companies::Company.includes(:clients).find(params[:id])
+
+        api_success(@data, { serializer: Companies::CompanySerializer }, 200)
+      end
+
+      def update
+        # #
+      end
+
       private
 
       def company_params

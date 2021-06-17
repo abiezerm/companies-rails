@@ -23,7 +23,7 @@ module Api
       end
 
       def show
-        @client = Clients::Client.find(params[:id])
+        @client = Clients::Client.includes(:company).find(params[:id])
         api_success(@client, { serializer: Clients::ClientCompanySerializer }, 200)
       end
 
