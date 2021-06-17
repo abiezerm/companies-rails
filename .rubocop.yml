@@ -1,0 +1,17 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/services/**/*'
