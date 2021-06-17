@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   namespace :api, as: nil, defaults: { format: 'json' } do
     namespace :v1 do
-      get 'test' => 'test#index'
-
-      resources :clients, only: %i[index create]
-      resources :companies, only: %i[index create]
+      resources :clients, only: %i[index create show update destroy]
+      resources :companies, only: %i[index create show update destroy] do
+        resources :clients, only: %i[index create destroy]
+      end
     end
 
     get '/*path', to: lambda { |_env|

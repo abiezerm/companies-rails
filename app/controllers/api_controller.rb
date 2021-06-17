@@ -13,11 +13,8 @@ class ApiController < ActionController::API
   end
 
   def error_record_not_found(exception)
-    logger.error exception.class_name
-    if exception.class_name
-      api_error(404, "#{exception.class_name} not found!", [])
-    elsif exception.model
-      api_error(404, "#{exception.model} not found!", [])
+    if exception.model
+      api_error(404, "#{exception.model.to_s.split('::').last} not found!", [])
     else
       api_error(404, 'Not found!', [])
     end
