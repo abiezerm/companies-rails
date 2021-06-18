@@ -31,10 +31,6 @@ module Api
         end
       end
 
-      def update
-        # #
-      end
-
       def destroy
         address = Addresses::Address.where(id: params[:id], client_id: params[:client_id]).first
 
