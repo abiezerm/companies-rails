@@ -1,6 +1,6 @@
 module Clients
   class CreateClient < ApplicationService
-    attr_reader :first_name, :last_name, :phone, :email, :title, :company_id
+    attr_reader :first_name, :last_name, :phone, :email, :title, :company_id, :addresses
 
     def initialize(params = {})
       @first_name = params[:first_name]
@@ -9,6 +9,7 @@ module Clients
       @email = params[:email]
       @title = params[:title]
       @company_id = params[:company_id]
+      @addresses = params[:addresses]
     end
 
     def call
@@ -18,7 +19,8 @@ module Clients
         phone: phone,
         email: email,
         title: title,
-        company_id: company_id
+        company_id: company_id,
+        addresses_attributes: addresses
       )
       @client
     end

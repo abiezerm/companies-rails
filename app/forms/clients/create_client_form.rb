@@ -2,7 +2,7 @@ module Clients
   class CreateClientForm
     include ActiveModel::Model
 
-    attr_accessor :first_name, :last_name, :phone, :email, :title, :company_id
+    attr_accessor :first_name, :last_name, :phone, :email, :title, :company_id, :addresses_attributes
     attr_reader :client
 
     validates :first_name, :last_name, :phone, :email, :title, :company_id, presence: true

@@ -40,7 +40,9 @@ module Api
       private
 
       def client_create_params
-        params.require(:client).permit(:first_name, :last_name, :phone, :email, :title, :company_id)
+        params[:client][:addresses] ||= []
+        params.require(:client).permit(:first_name, :last_name, :phone, :email, :title, :company_id,
+                                       addresses: %i[address1 address2 zip_code city country])
       end
 
       def client_update_params
