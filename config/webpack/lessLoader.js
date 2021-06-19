@@ -11,10 +11,10 @@ module.exports = getStyleRule(/\.less$/i, false, [
             dark: false,
             compact: false,
           }),
-          "primary-color": "#39c486",
         },
       },
       javascriptEnabled: true,
+      sourceMap: true,
     },
   },
 ]);
