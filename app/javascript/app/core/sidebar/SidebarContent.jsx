@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Menu } from "antd";
 import { LibraryIcon, UsersIcon } from "@heroicons/react/solid";
+import { useHistory } from "react-router";
 
 const SidebarContent = ({ collapsed }) => {
+    const history = useHistory();
     return (
         <>
             <div className={`${collapsed ? "logo-collapsed" : "logo"}`}>
@@ -17,12 +19,14 @@ const SidebarContent = ({ collapsed }) => {
                 <Menu.Item
                     key="1"
                     icon={<LibraryIcon style={{ height: "15px" }} />}
+                    onClick={() => history.push("/companies")}
                 >
                     Companies
                 </Menu.Item>
                 <Menu.Item
                     key="2"
                     icon={<UsersIcon style={{ height: "15px" }} />}
+                    onClick={() => history.push("/clients")}
                 >
                     Clients
                 </Menu.Item>
