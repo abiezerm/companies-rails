@@ -1,4 +1,4 @@
-import { Badge, Divider, Tag } from "antd";
+import { Divider, Tag } from "antd";
 import * as React from "react";
 import { useDispatchPromise } from "../../hooks/useDispatchPromise";
 import { ActionCompanies } from "../../redux/companies/companiesActions";
