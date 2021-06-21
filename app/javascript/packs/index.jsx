@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import MainApp from "../app/containers/MainApp";
-import "styles/application.less";
+import "styles/index.less";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 import { Provider } from "react-redux";

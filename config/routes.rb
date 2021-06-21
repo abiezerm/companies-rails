@@ -15,5 +15,7 @@ Rails.application.routes.draw do
   end
 
   root 'react#index'
-  get '/*path' => 'react#index'
+  get '/*path' => 'react#index', constraints: lambda { |request|
+    !request.xhr? && request.format.html?
+  }
 end
