@@ -2,7 +2,7 @@ module Clients
   class UpdateClientForm
     include ActiveModel::Model
 
-    attr_accessor :id, :first_name, :last_name, :phone, :email, :title
+    attr_accessor :id, :first_name, :last_name, :phone, :email, :title, :company_id
     attr_reader :client
 
     validates :id, :first_name, :last_name, :phone, :email, :title, presence: true
@@ -32,7 +32,8 @@ module Clients
         last_name: last_name,
         phone: phone,
         email: email,
-        title: title
+        title: title,
+        company_id: company_id
       )
     end
 

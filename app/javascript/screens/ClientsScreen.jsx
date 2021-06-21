@@ -13,7 +13,7 @@ const ClientsScreen = ({ request, columns }) => {
     const menu = (
         <Menu>
             <Menu.Item key={0}>
-                <Link to="/companies/create">Create a client</Link>
+                <Link to="/clients/create">Create a client</Link>
             </Menu.Item>
         </Menu>
     );
@@ -33,7 +33,7 @@ const ClientsScreen = ({ request, columns }) => {
                                 style={{ color: "#fff" }}
                                 to="/clients/create"
                             >
-                                Create a company
+                                Create a client
                             </Link>
                         </Button>
                     )

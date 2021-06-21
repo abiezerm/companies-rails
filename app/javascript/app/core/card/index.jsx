@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Card as CardAntD } from "antd";
 
-const Card = ({ title, children, extra = undefined }) => {
+const Card = ({ title, children, style = undefined, extra = undefined }) => {
     return (
-        <CardAntD title={title} extra={extra}>
+        <CardAntD style={style} title={title} extra={extra}>
             {children}
         </CardAntD>
     );

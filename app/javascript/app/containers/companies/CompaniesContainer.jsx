@@ -1,8 +1,10 @@
-import { Divider, Tag } from "antd";
 import * as React from "react";
-import { useDispatchPromise } from "../../hooks/useDispatchPromise";
-import { ActionCompanies } from "../../redux/companies/companiesActions";
-import CompaniesScreen from "../../screens/CompaniesScreen";
+import { Divider, Tag, Popconfirm, message } from "antd";
+import { useDispatchPromise } from "../../../hooks/useDispatchPromise";
+import { ActionCompanies } from "../../../redux/companies/companiesActions";
+import CompaniesScreen from "../../../screens/CompaniesScreen";
+import { Link } from "react-router-dom";
+import { companyDeleteById } from "../../../redux/companies/companiesServices";
 
 const CompaniesContainer = ({ match }) => {
     const { request } = useDispatchPromise(ActionCompanies.getAllRequest);
@@ -37,9 +39,18 @@ const CompaniesContainer = ({ match }) => {
             key: "action",
             render: (t, d) => (
                 <span>
-                    <a>Show</a>
+                    <Link to={`/companies/${d.id}`}>Show</Link>
                     <Divider type="vertical" />
-                    <a>Delete</a>
+                    <Popconfirm
+                        title="Are you sure to delete this company?"
+                        onConfirm={() => {
+                            companyDeleteById(d.id);
+                            message.success("Deleted");
+                            window.location.reload();
+                        }}
+                    >
+                        <a>Delete</a>
+                    </Popconfirm>
                 </span>
             ),
         },

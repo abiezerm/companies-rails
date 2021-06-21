@@ -3,7 +3,7 @@ module Clients
     attributes :id, :first_name, :last_name, :phone, :email, :title, :company, :addresses
 
     def company
-      Companies::CompanyClientSerializer.new(object.company).attributes
+      Companies::CompanyClientSerializer.new(object.company).attributes if object.company
     end
 
     def addresses

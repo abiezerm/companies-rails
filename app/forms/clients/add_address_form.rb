@@ -8,7 +8,6 @@ module Clients
     validates :address1, :address2, :zip_code, :city, :country, :client_id, presence: true
 
     def initialize(params = {})
-      Rails.logger.info(params[:client_id])
       @client = Clients::Client.find(params[:client_id])
       @address = Addresses::Address.new(params)
       super(params)

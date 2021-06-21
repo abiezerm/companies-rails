@@ -37,6 +37,14 @@ module Api
         end
       end
 
+      def destroy
+        client = Clients::Client.find(params[:id])
+
+        client.destroy
+
+        api_success({ delete: true }, {}, 200)
+      end
+
       private
 
       def client_create_params
@@ -46,7 +54,7 @@ module Api
       end
 
       def client_update_params
-        params.require(:client).permit(:id, :first_name, :last_name, :phone, :email, :title)
+        params.require(:client).permit(:id, :first_name, :last_name, :phone, :email, :title, :company_id)
       end
     end
   end

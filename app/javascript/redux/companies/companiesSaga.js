@@ -1,6 +1,6 @@
-import { takeLatest, put, call, all } from "redux-saga/effects";
+import { takeLatest, call, all } from "redux-saga/effects";
 import { COMPANIES } from "./companiesActions";
-import { getAllCompanies } from "./companiesServices";
+import { getAllClientsByCompanyId, getAllCompanies } from "./companiesServices";
 
 function* getAll(action) {
     const { filters, resolve, reject } = action.payload;
@@ -12,8 +12,22 @@ function* getAll(action) {
     }
 }
 
+function* getAllClients(action) {
+    const { id, filters, resolve, reject } = action.payload;
+
+    try {
+        const response = yield call(getAllClientsByCompanyId, id, filters);
+        resolve(response);
+    } catch (err) {
+        reject(err);
+    }
+}
+
 function* rootSaga() {
-    yield all([takeLatest(COMPANIES.GET_ALL.REQUEST, getAll)]);
+    yield all([
+        takeLatest(COMPANIES.GET_ALL.REQUEST, getAll),
+        takeLatest(COMPANIES.GET_ALL_CLIENTS.REQUEST, getAllClients),
+    ]);
 }
 
 export default rootSaga;

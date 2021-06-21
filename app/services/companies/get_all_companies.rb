@@ -10,7 +10,7 @@ module Companies
 
     def call
       total = Companies::Company.count
-      companies = Companies::Company.includes(:clients).order(created_at: :asc).limit(page_size).offset(offset)
+      companies = Companies::Company.includes(:clients).order(created_at: :desc).limit(page_size).offset(offset)
       total_filtered = companies.size
       Utils.paginate(companies, page, page_size, total, total_filtered)
     end

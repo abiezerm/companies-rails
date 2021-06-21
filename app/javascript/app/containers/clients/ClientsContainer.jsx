@@ -1,8 +1,10 @@
-import { Divider } from "antd";
 import * as React from "react";
-import { useDispatchPromise } from "../../hooks/useDispatchPromise";
-import { ClientsActions } from "../../redux/clients/clientsActions";
-import ClientsScreen from "../../screens/ClientsScreen";
+import { Divider, Popconfirm, message } from "antd";
+import ClientsScreen from "../../../screens/ClientsScreen";
+import { useDispatchPromise } from "../../../hooks/useDispatchPromise";
+import { ClientsActions } from "../../../redux/clients/clientsActions";
+import { Link } from "react-router-dom";
+import { deleteClientById } from "../../../redux/clients/clientsServices";
 
 const ClientsContainer = ({}) => {
     const { request } = useDispatchPromise(ClientsActions.getAll);
@@ -37,9 +39,18 @@ const ClientsContainer = ({}) => {
             key: "action",
             render: (t, d) => (
                 <span>
-                    <a>Show</a>
+                    <Link to={`/clients/${d.id}`}>Show</Link>
                     <Divider type="vertical" />
-                    <a>Delete</a>
+                    <Popconfirm
+                        title="Are you sure to delete this client?"
+                        onConfirm={() => {
+                            deleteClientById(d.id);
+                            message.success("Deleted");
+                            window.location.reload();
+                        }}
+                    >
+                        <a>Delete</a>
+                    </Popconfirm>
                 </span>
             ),
         },

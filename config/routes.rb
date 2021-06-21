@@ -4,7 +4,9 @@ Rails.application.routes.draw do
       resources :clients, only: %i[index create show update destroy] do
         resources :addresses, only: %i[index create show destroy], constraints: { id: /\d.+/ }
       end
-      resources :companies, only: %i[index create show update destroy]
+      resources :companies, only: %i[index create show update destroy] do
+        get 'clients', to: 'companies#show_clients'
+      end
     end
 
     get '/*path', to: lambda { |_env|
