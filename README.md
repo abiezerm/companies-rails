@@ -1,24 +1,36 @@
-# README
+# Companies System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Config
 
-Things you may want to cover:
 
-* Ruby version
+Companies system require install by following the instructions docs for install
 
-* System dependencies
+```sh
+gem install bundler -v 1.17.3
+RUN bundle install
+```
 
-* Configuration
+Copy environment and configure your credentials
 
-* Database creation
+```sh
+cp .env.sample .env
+```
 
-* Database initialization
+Configure database and migrate
+```sh
+rake db:create && rake db:migrate
+```
 
-* How to run the test suite
+Install NPM Packages and compile
+```sh
+yarn install
+RAILS_ENV=production rake assets:precompile
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Execute server and enjoy
+```sh
+RAILS_ENV=production RAILS_SERVE_STATIC_FILES=1 rails s
+```
 
-* Deployment instructions
-
-* ...
+Go to the browser and enter to link
+> http://localhost:3000/

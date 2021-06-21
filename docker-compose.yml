@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+    db-app:
+        container_name: db-app
+        restart: always
+        image: postgres:11.3-alpine
+        environment:
+            POSTGRES_PASSWORD: p@ssw0rd
+        ports:
+            - 5432:5432
+        volumes:
+        - "${PWD}/data:/var/lib/postgresql/data"
+    app:
+        restart: always
+        container_name: app
+        image: rails-companies
+        environment:
+            - "RAILS_SERVE_STATIC_FILES=1"
+        ports:
+            - "3000:3000"
+        env_file: .env
+
+networks:
+    default:
+        external:
+            name: docker_default
